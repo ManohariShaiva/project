@@ -1,0 +1,6 @@
+deep-translator
+Flask
+gTTS
+pydub
+whisper
+yt-dlp

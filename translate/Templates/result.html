@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Translated Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .output-block {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        video, audio {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+        pre {
+            white-space: pre-wrap;
+            background: #eee;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Translated Videos</h1>
+
+    {% if outputs %}
+        {% for lang, data in outputs.items() %}
+            <div class="output-block">
+                <h2>Language: {{ lang.upper() }}</h2>
+
+                {% if data.type == 'text' %}
+                    <pre>{{ data.content }}</pre>
+                {% elif data.type == 'video' %}
+                    <video controls>
+                        <source src="{{ url_for('serve_output_file', filename=data.filename) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% elif data.type == 'audio' %}
+                    <audio controls>
+                        <source src="{{ url_for('serve_output_file', filename=data.filename) }}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
+                {% else %}
+                    <p>Unsupported file type: {{ data.filename }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No outputs generated.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">⬅ Back to Home</a>
+</body>
+</html>

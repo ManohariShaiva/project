@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Translator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 2rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 0.6rem;
+            margin-top: 0.3rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .checkbox-group {
+            margin-top: 1rem;
+        }
+
+        .checkbox-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="submit"] {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #667eea;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5a67d8;
+        }
+
+        #file_input,
+        #youtube_input {
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Translate a Video</h2>
+        <form method="post" enctype="multipart/form-data">
+            <label>Select Input Type:</label>
+            <input type="radio" name="input_type" value="youtube" checked> YouTube URL
+            <input type="radio" name="input_type" value="upload"> Upload File
+
+            <div id="youtube_input">
+                <label for="youtube_url">YouTube URL:</label>
+                <input type="text" name="youtube_url" id="youtube_url" placeholder="Enter YouTube URL">
+            </div>
+
+            <div id="file_input" style="display: none;">
+                <label for="video_file">Choose Video File:</label>
+                <input type="file" name="video_file" id="video_file">
+            </div>
+
+            <div class="checkbox-group">
+                <p>Select Target Languages:</p>
+                <label><input type="checkbox" name="languages" value="kn"> Kannada</label>
+                <label><input type="checkbox" name="languages" value="hi"> Hindi</label>
+                <label><input type="checkbox" name="languages" value="ta"> Tamil</label>
+                <label><input type="checkbox" name="languages" value="te"> Telugu</label>
+                <label><input type="checkbox" name="languages" value="ml"> Malayalam</label>
+            </div>
+
+            <input type="submit" value="Process Video">
+        </form>
+    </div>
+
+    <script>
+        const ytRadio = document.querySelector('input[value="youtube"]');
+        const fileRadio = document.querySelector('input[value="upload"]');
+        const ytInput = document.getElementById('youtube_input');
+        const fileInput = document.getElementById('file_input');
+
+        ytRadio.addEventListener('change', () => {
+            ytInput.style.display = 'block';
+            fileInput.style.display = 'none';
+        });
+
+        fileRadio.addEventListener('change', () => {
+            ytInput.style.display = 'none';
+            fileInput.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
